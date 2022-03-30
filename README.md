@@ -1,2 +1,1 @@
 "# ShoppiAndroid"
-"# ShoppiAndroid" 
