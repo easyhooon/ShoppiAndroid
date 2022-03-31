@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -14,10 +16,14 @@ import com.kenshi.shoppi.AssetLoader
 import com.kenshi.shoppi.GlideApp
 import com.kenshi.shoppi.R
 import com.kenshi.shoppi.data.model.HomeData
+import com.kenshi.shoppi.data.model.Title
 import com.kenshi.shoppi.databinding.FragmentHomeBinding
 import org.json.JSONObject
+import java.util.*
 
 class HomeFragment : Fragment() {
+
+    private val viewModel: HomeViewModel by viewModels()
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -44,45 +50,28 @@ class HomeFragment : Fragment() {
             val gson = Gson()
             val homeData = gson.fromJson(homeJsonString, HomeData::class.java)
 
-
-//            val jsonObject = JSONObject(homeJsonString)
-//            val title = jsonObject.getJSONObject("title")
-//            val text = title.getString("text")
-//            val iconUrl = title.getString("icon_url")
-
-            val text = homeData.title.text
-            val iconUrl = homeData.title.iconUrl
-
-            binding.tbHomeTitle.text = text
-
-            GlideApp.with(this)
-                .load(iconUrl)
-                .centerCrop()
-                .into(binding.tbHomeIcon)
-
-            // 직접 구현방법, 이를 대신 해주는 라이브러리 gson
-//            val topBanners = jsonObject.getJSONArray("top_banners")
-//            val size = topBanners.length()
-//            for(index in 0 until size) {
-//                val bannerObject = topBanners.getJSONObject(index)
-//                val backgroundImageUrl = bannerObject.getString("background_image_url")
-//                val badgeObject = bannerObject.getJSONObject("badge")
-//                val badgeLabel = badgeObject.getString("label")
-//                val badgeBackgroundColor = badgeObject.getString("background_color")
-//                val bannerBadge = BannerBadge(badgeLabel, badgeBackgroundColor)
+//            SAM
+//            viewModel.title.observe(viewLifecycleOwner, object : Observer<Title> {
+//                override fun onChanged(t: Title?) {
 //
-//                val banner = Banner(
-//                    backgroundImageUrl,
-//                    bannerBadge,
-//                    bannerLabel,
-//                    bannerProductDetail
-//                )
-//            }
+//                }
+//            })
 
-            binding.vpHomeBanner.adapter = HomeBannerAdapter().apply{
-                submitList(homeData.topBanners)
+            viewModel.title.observe(viewLifecycleOwner) { title ->
+                binding.tbHomeTitle.text = title.text
+
+                GlideApp.with(this)
+                    .load(title.iconUrl)
+                    .centerCrop()
+                    .into(binding.tbHomeIcon)
             }
-            //SAM
+
+            viewModel.topBanners.observe(viewLifecycleOwner) { banners ->
+                binding.vpHomeBanner.adapter = HomeBannerAdapter().apply {
+                    submitList(banners)
+                }
+            }
+
             //getDimension : dp to pixel
             //블로그 글과 코드 비교해볼것
             val pageWidth = resources.getDimension(R.dimen.viewpager_item_width)
