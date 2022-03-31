@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_tabbar_home_on" android:state_selected="true"/>
+<!--    <item android:drawable="@drawable/ic_tabbar_home_off" android:state_selected="false"/>-->
+<!--    true 일때만 on이 보여지고 나머지 상태일때는 default-->
+    <item android:drawable="@drawable/ic_tabbar_home_off"/>
+</selector>

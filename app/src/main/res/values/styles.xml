@@ -13,7 +13,7 @@
         <item name="cornerSize">8dp</item>
     </style>
 
-    <!-- Text Style -->
+    <!-- Text Style 텍스트 크기 순으로 정렬 -->
     <style name="TextHeadline32" >
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/shoppi_black_01</item>

@@ -1,4 +1,4 @@
-package com.kenshi.shoppi
+package com.kenshi.shoppi.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -27,8 +27,8 @@ class ProductDetailFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 }
