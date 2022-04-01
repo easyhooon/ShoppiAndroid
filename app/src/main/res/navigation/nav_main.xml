@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.kenshi.shoppi.ui.HomeFragment"
+        android:name="com.kenshi.shoppi.ui.home.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_home_to_productDetail"

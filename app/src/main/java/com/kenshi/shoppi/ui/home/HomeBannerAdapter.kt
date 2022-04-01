@@ -1,4 +1,4 @@
-package com.kenshi.shoppi.ui
+package com.kenshi.shoppi.ui.home
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,21 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kenshi.shoppi.GlideApp
 import com.kenshi.shoppi.R
 import com.kenshi.shoppi.data.model.Banner
-import org.w3c.dom.Text
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
 // T: 레이아웃에 표현할 데이터의 타입, VH: 뷰홀더
 // ListAdapter : data 의 list 를 받아서 0번째 부터 순차적으로 뷰홀더와 바인딩을 함
 // 이때 레이아웃은 그대로 유지한채로 데이터만 업데이트한다면, 성능상의 이점이 있음, 이를 지원하는게 ListAdapter
-class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHolder>(BannerDiffCallback()) {
+class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHolder>(
+    BannerDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeBannerViewHolder {
        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_home_banner, parent, false)
