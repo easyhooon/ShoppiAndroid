@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
-import com.kenshi.shoppi.GlideApp
 import com.kenshi.shoppi.R
+import com.kenshi.shoppi.databinding.FragmentCartBinding
 import com.kenshi.shoppi.databinding.FragmentHomeBinding
 import com.kenshi.shoppi.ui.common.ViewModelFactory
 
@@ -32,6 +32,13 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        setToolbar()
+        setTopBanners()
+    }
+
+    private fun setToolbar() {
 //            SAM
 //            viewModel.title.observe(viewLifecycleOwner, object : Observer<Title> {
 //                override fun onChanged(t: Title?) {
@@ -39,16 +46,14 @@ class HomeFragment : Fragment() {
 //                }
 //            })
 
+        //ViewModel 의 title 데이터가 업데이트 되어야지만 title 객체가 할당이 됨, NPE
         viewModel.title.observe(viewLifecycleOwner) { title ->
-            binding.tbHomeTitle.text = title.text
-
-            GlideApp.with(this)
-                .load(title.iconUrl)
-                .centerCrop()
-                .into(binding.tbHomeIcon)
+            binding.title = title
         }
+    }
 
-        //수정 필요 - topBanners 의 데이터가 변경과 상관없이 어댑터는 초기화 해야함
+    private fun setTopBanners() {
+//        수정 필요 - topBanners 의 데이터가 변경과 상관없이 어댑터는 초기화 해야함
 //        viewModel.topBanners.observe(viewLifecycleOwner) { banners ->
 //            binding.vpHomeBanner.adapter = HomeBannerAdapter().apply {
 //                submitList(banners)
@@ -62,30 +67,28 @@ class HomeFragment : Fragment() {
 //            })
 //        }
 
-        binding.vpHomeBanner.adapter = HomeBannerAdapter().apply {
-            viewModel.topBanners.observe(viewLifecycleOwner) { banners ->
-                submitList(banners)
+        with(binding.vpHomeBanner) {
+            adapter = HomeBannerAdapter().apply {
+                viewModel.topBanners.observe(viewLifecycleOwner) { banners ->
+                    submitList(banners)
+                }
             }
+
+            //getDimension : dp to pixel
+            //블로그 글과 코드 비교해볼것
+            val pageWidth = resources.getDimension(R.dimen.viewpager_item_width)
+            val pageMargin = resources.getDimension(R.dimen.viewpager_item_margin)
+            val screenWidth = resources.displayMetrics.widthPixels
+            val offset = screenWidth - pageWidth - pageMargin
+
+            offscreenPageLimit = 3
+
+            setPageTransformer { page, position ->
+                page.translationX = position * -offset
+            }
+
+            TabLayoutMediator(binding.tlHomeBannerViewpagerIndicator, this) { _, _ -> }.attach()
         }
-
-        //getDimension : dp to pixel
-        //블로그 글과 코드 비교해볼것
-        val pageWidth = resources.getDimension(R.dimen.viewpager_item_width)
-        val pageMargin = resources.getDimension(R.dimen.viewpager_item_margin)
-        val screenWidth = resources.displayMetrics.widthPixels
-        val offset = screenWidth - pageWidth - pageMargin
-
-        binding.vpHomeBanner.offscreenPageLimit = 3
-
-        binding.vpHomeBanner.setPageTransformer { page, position ->
-            page.translationX = position * -offset
-        }
-
-        TabLayoutMediator(binding.tlHomeBannerViewpagerIndicator,
-            binding.vpHomeBanner) { tab, position ->
-
-        }.attach()
-
     }
 
     override fun onDestroyView() {

@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // bnv icon 의 원래 색상 부여 (그라데이션)
+        // bnv icon 의 원래 색상 부여를 위해 (그라데이션)
         binding.bnvMain.itemIconTintList = null
 
         val navController = supportFragmentManager.findFragmentById(R.id.container_main)?.findNavController()
@@ -24,6 +24,4 @@ class MainActivity : AppCompatActivity() {
             binding.bnvMain.setupWithNavController(it)
         }
     }
-
-
 }
