@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="banner"
             type="com.kenshi.shoppi.data.model.Banner" />

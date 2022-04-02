@@ -10,12 +10,12 @@ import androidx.fragment.app.viewModels
 import com.kenshi.shoppi.databinding.FragmentCategoryBinding
 import com.kenshi.shoppi.ui.common.ViewModelFactory
 
-class CategoryFragment: Fragment() {
+class CategoryFragment : Fragment() {
 
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: CategoryViewModel by viewModels {ViewModelFactory(requireContext())}
+    private val viewModel: CategoryViewModel by viewModels { ViewModelFactory(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,8 +29,10 @@ class CategoryFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val categoryAdapter = CategoryAdapter()
+        binding.rvCategoryList.adapter = categoryAdapter
         viewModel.items.observe(viewLifecycleOwner) {
-            Log.d("CategoryFragment", "items=$it")
+            categoryAdapter.submitList(it)
         }
     }
 
