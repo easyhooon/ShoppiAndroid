@@ -25,7 +25,6 @@ class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHo
 ) {
     private lateinit var binding: ItemHomeBannerBinding
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeBannerViewHolder {
         binding = ItemHomeBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 //        return HomeBannerViewHolder(binding.root)

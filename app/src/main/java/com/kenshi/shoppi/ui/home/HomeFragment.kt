@@ -47,19 +47,13 @@ class HomeFragment : Fragment() {
 //            })
 
         //ViewModel 의 title 데이터가 업데이트 되어야지만 title 객체가 할당이 됨, NPE
+        // title이 null 이 아닐때만 image를 로드하도록 bindingAdapter 코드 수정
         viewModel.title.observe(viewLifecycleOwner) { title ->
             binding.title = title
         }
     }
 
     private fun setTopBanners() {
-//        수정 필요 - topBanners 의 데이터가 변경과 상관없이 어댑터는 초기화 해야함
-//        viewModel.topBanners.observe(viewLifecycleOwner) { banners ->
-//            binding.vpHomeBanner.adapter = HomeBannerAdapter().apply {
-//                submitList(banners)
-//            }
-//        }
-
 //        아래와 같은 표현식
 //        binding.vpHomeBanner.adapter = HomeBannerAdapter().apply {
 //            viewModel.topBanners.observe(viewLifecycleOwner, { banners ->
