@@ -18,7 +18,7 @@ class CategoryDetailFragment : Fragment() {
     private var _binding: FragmentCategoryDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: CategoryViewModel by viewModels { ViewModelFactory(requireContext()) }
+    private val viewModel: CategoryDetailViewModel by viewModels { ViewModelFactory(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +37,6 @@ class CategoryDetailFragment : Fragment() {
         //bundle 객체에 접근
         setToolbar()
         setListAdapter()
-
     }
 
     private fun setToolbar() {
@@ -50,6 +49,12 @@ class CategoryDetailFragment : Fragment() {
         val titleAdapter = CategorySectionTitleAdapter()
         val promotionAdapter = CategoryPromotionAdapter()
         binding.rvCategoryDetailList.adapter = ConcatAdapter(titleAdapter, promotionAdapter)
+
+        //promotion UI Update
+        viewModel.promotions.observe(viewLifecycleOwner) { promotions ->
+            titleAdapter.submitList(listOf(promotions.title))
+            promotionAdapter.submitList(promotions.items)
+        }
     }
 
     override fun onDestroyView() {

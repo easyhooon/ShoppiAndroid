@@ -2,6 +2,8 @@ package com.kenshi.shoppi.ui.common
 
 import androidx.lifecycle.Observer
 
+//architecture-samples/app/src/main/java/com/example/android/architecture/blueprints/todoapp/Event.kt
+
 //데이터 타입은 무엇이든 가능하게 제네릭
 class Event<T>(private val content: T) {
     //데이터가 소비되었는지 여부 확인

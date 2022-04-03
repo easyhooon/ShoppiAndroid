@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import com.kenshi.shoppi.AssetLoader
 import com.kenshi.shoppi.data.model.HomeData
 
-class HomeAssetDataSource(private val assetLoader: AssetLoader) : HomeDataSource {
+class HomeDataSourceImpl(private val assetLoader: AssetLoader) : HomeDataSource {
 
     private val gson = Gson()
 

@@ -4,13 +4,15 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.kenshi.shoppi.AssetLoader
-import com.kenshi.shoppi.data.datasource.CategoryDataSource
-import com.kenshi.shoppi.data.datasource.CategoryRemoteDataSource
-import com.kenshi.shoppi.data.datasource.HomeAssetDataSource
+import com.kenshi.shoppi.data.datasource.CategoryDataSourceImpl
+import com.kenshi.shoppi.data.datasource.CategoryDetailDataSourceImpl
+import com.kenshi.shoppi.data.datasource.HomeDataSourceImpl
 import com.kenshi.shoppi.data.network.ApiClient
+import com.kenshi.shoppi.data.repository.CategoryDetailRepository
 import com.kenshi.shoppi.data.repository.CategoryRepository
 import com.kenshi.shoppi.data.repository.HomeRepository
 import com.kenshi.shoppi.ui.category.CategoryViewModel
+import com.kenshi.shoppi.ui.categorydetail.CategoryDetailViewModel
 import com.kenshi.shoppi.ui.home.HomeViewModel
 import java.lang.IllegalArgumentException
 
@@ -23,13 +25,19 @@ class ViewModelFactory(private val context: Context): ViewModelProvider.Factory 
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 //객체를 생성할때 의존 관계가 발생
                 //이를 DI 라이브러리를 통해 해결할수 있지만 클래스간의 의존 관계를 설계할 수 있는 것 또한 중요!
-                val repository = HomeRepository(HomeAssetDataSource(AssetLoader(context)))
+                val repository = HomeRepository(HomeDataSourceImpl(AssetLoader(context)))
                 HomeViewModel(repository) as T
             }
             modelClass.isAssignableFrom(CategoryViewModel::class.java) -> {
-                val repository = CategoryRepository(CategoryRemoteDataSource(ApiClient.create()))
+                val repository = CategoryRepository(CategoryDataSourceImpl(ApiClient.create()))
                 CategoryViewModel(repository) as T
             }
+
+            modelClass.isAssignableFrom(CategoryDetailViewModel::class.java) -> {
+                val repository = CategoryDetailRepository(CategoryDetailDataSourceImpl(ApiClient.create()))
+                CategoryDetailViewModel(repository) as T
+            }
+
             else -> {
                 //ViewModel 이 아닌 클래스에서 create 메소드를 호출하는 경우
                 throw IllegalArgumentException("Failed to create ViewModel: ${modelClass.name}")
