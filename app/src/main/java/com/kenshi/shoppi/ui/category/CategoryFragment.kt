@@ -5,10 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.kenshi.shoppi.KEY_CATEGORY_ID
+import com.kenshi.shoppi.KEY_CATEGORY_LABEL
+import com.kenshi.shoppi.R
+import com.kenshi.shoppi.data.model.Category
 import com.kenshi.shoppi.databinding.FragmentCategoryBinding
+import com.kenshi.shoppi.ui.common.EventObserver
 import com.kenshi.shoppi.ui.common.ViewModelFactory
+import java.util.*
 
 class CategoryFragment : Fragment() {
 
@@ -29,11 +37,33 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val categoryAdapter = CategoryAdapter()
+        val categoryAdapter = CategoryAdapter(viewModel)
         binding.rvCategoryList.adapter = categoryAdapter
         viewModel.items.observe(viewLifecycleOwner) {
             categoryAdapter.submitList(it)
         }
+
+        //CategoryFragment는 여전히 LiveData 의 event를 수신하고 있기때문에
+        //핸드폰의 뒤로가기 버튼이 작동하지 않음 (돌아왔다가 바로 이동 -> 계속 머물고 있는것처럼 보임)
+        //이러한 방법을 해결하기 위해 한번 소비한 데이터는 다시 사용할 수 없도록 하는 방법이 존재
+//        viewModel.openCategoryEvent.observe(viewLifecycleOwner) {
+//            openCategoryDetail(it.categoryId, it.label)
+//        }
+
+        viewModel.openCategoryEvent.observe(viewLifecycleOwner, EventObserver {
+            openCategoryDetail(it.categoryId, it.label)
+        })
+    }
+
+    private fun openCategoryDetail(categoryId: String, categoryLabel: String) {
+        findNavController().navigate(
+            //data 는 bundle 객체에 담아 보냄
+            R.id.action_category_to_category_detail, bundleOf(
+                //"key" to "value"
+                KEY_CATEGORY_ID to categoryId,
+                KEY_CATEGORY_LABEL to categoryLabel
+            )
+        )
     }
 
     override fun onDestroyView() {
