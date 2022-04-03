@@ -18,6 +18,7 @@
     <string name="description_product_detail_thumbnail">상품 상세 대표 이미지</string>
     <string name="description_product_detail_image">상품 상세 이미지</string>
     <string name="label_category_new">NEW</string>
+    <string name="product_representative_image">상품 대표 이미지</string>
 
 
 </resources>

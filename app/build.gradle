@@ -84,6 +84,9 @@ dependencies {
     //viewModelScope - viewmodel 에서 coroutinescope 관리 할 수 있는
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
 
+    //recyclerview - ConcatAdapter
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+
 
 
     testImplementation 'junit:junit:4.13.2'

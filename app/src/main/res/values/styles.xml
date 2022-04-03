@@ -39,6 +39,10 @@
         <item name="android:textColor">@color/shoppi_black_01</item>
     </style>
 
+    <style name="TextMedium.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextMedium.Purple">
         <item name="android:textColor">@color/shoppi_purple</item>
     </style>
