@@ -46,9 +46,13 @@ class CategoryDetailFragment : Fragment() {
 
     private fun setListAdapter() {
         //adapter 여러개를 연결 - 여러 종류의 viewType 을 하나의 adapter에 배치할 수 있음
+        val topSellingSectionAdapter = CategoryTopSellingSectionAdapter()
         val titleAdapter = CategorySectionTitleAdapter()
         val promotionAdapter = CategoryPromotionAdapter()
-        binding.rvCategoryDetailList.adapter = ConcatAdapter(titleAdapter, promotionAdapter)
+        binding.rvCategoryDetailList.adapter = ConcatAdapter(topSellingSectionAdapter, titleAdapter, promotionAdapter)
+        viewModel.topSelling.observe(viewLifecycleOwner) {topSelling ->
+            topSellingSectionAdapter.submitList(listOf(topSelling))
+        }
 
         //promotion UI Update
         viewModel.promotions.observe(viewLifecycleOwner) { promotions ->

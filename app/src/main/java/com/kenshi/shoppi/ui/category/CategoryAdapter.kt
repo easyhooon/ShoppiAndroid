@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kenshi.shoppi.data.model.Category
 import com.kenshi.shoppi.databinding.ItemCategoryBinding
+import com.kenshi.shoppi.ui.common.CategoryDiffCallback
 
 //ctrl+좌클 해보면 알겠지만 recyclerViewAdapter 상속해서 만든애임
 //ListAdapter 의 문법상 data type 과 ViewHolder 를 명시해놓고 들어가기때문에 생성자로 list를 안받아도 되는 듯
@@ -31,17 +32,5 @@ class CategoryAdapter(private val viewModel : CategoryViewModel): ListAdapter<Ca
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.bind(getItem(position))
-    }
-}
-
-class CategoryDiffCallback: DiffUtil.ItemCallback<Category>() {
-    override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
-        return oldItem.categoryId == newItem.categoryId
-
-    }
-
-    override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-        return oldItem == newItem
-
     }
 }
