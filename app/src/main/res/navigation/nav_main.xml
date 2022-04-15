@@ -14,11 +14,13 @@
             android:id="@+id/action_home_to_product_detail"
             app:destination="@id/product_detail" />
     </fragment>
+
     <fragment
         android:id="@+id/cart"
         android:name="com.kenshi.shoppi.ui.CartFragment"
         android:label="CartFragment"
-        tools:layout="@layout/fragment_cart"/>
+        tools:layout="@layout/fragment_cart" />
+
     <fragment
         android:id="@+id/category"
         android:name="com.kenshi.shoppi.ui.category.CategoryFragment"
@@ -28,14 +30,17 @@
             android:id="@+id/action_category_to_category_detail"
             app:destination="@id/category_detail" />
     </fragment>
-    <fragment
-        android:id="@+id/product_detail"
-        android:name="com.kenshi.shoppi.ui.ProductDetailFragment"
-        android:label="fragment_product_detail"
-        tools:layout="@layout/fragment_product_detail" />
+
     <fragment
         android:id="@+id/category_detail"
         android:name="com.kenshi.shoppi.ui.categorydetail.CategoryDetailFragment"
         android:label="CategoryDetailFragment"
-        tools:layout="@layout/fragment_category_detail"/>
+        tools:layout="@layout/fragment_category_detail" />
+
+    <fragment
+        android:id="@+id/product_detail"
+        android:name="com.kenshi.shoppi.ui.productdetail.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail" />
+
 </navigation>

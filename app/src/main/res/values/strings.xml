@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">Shoppi</string>
-    <string name="title_product_image_title">상품 설명</string>
-
     <!--    %%을 통해 %을 string format 에 저장할 수 있다 %d %s 등 %하나는 의미를 특수한 기능을 수행하기 때문에-->
     <string name="unit_discount_rate">%d%%</string>
     <string name="unit_discount_currency">%s원</string>
@@ -13,14 +11,18 @@
 
     <!--    Image description-->
     <string name="appbar_home_icon">홈 화면 앱바 아이콘</string>
+
     <string name="description_home_banner_image">홈화면 배너 이미지</string>
     <string name="description_home_banner_thumnail">홈 화면 배너 썸네일</string>
+    <string name="title_product_image_title">상품 설명</string>
     <string name="description_product_detail_thumbnail">상품 상세 대표 이미지</string>
     <string name="description_product_detail_image">상품 상세 이미지</string>
     <string name="label_category_new">NEW</string>
     <string name="product_representative_image">상품 대표 이미지</string>
     <string name="category_thumbnail_image">카테고리 썸네일 이미지</string>
     <string name="n">N</string>
+    <string name="coupon_application_price">쿠폰 적용가</string>
+    <string name="shopping_cart">장바구니 담기</string>
 
 
 </resources>

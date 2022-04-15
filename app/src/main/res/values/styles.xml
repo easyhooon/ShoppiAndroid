@@ -54,6 +54,11 @@
     <style name="TextSubtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="android:textColor">@color/shoppi_black_01</item>
     </style>
+
+    <style name="TextSubtitle1.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="TextSubtitle1.White">
         <item name="android:textColor">@color/shoppi_white</item>
     </style>

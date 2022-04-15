@@ -14,13 +14,14 @@ import com.kenshi.shoppi.GlideApp
 import com.kenshi.shoppi.R
 import com.kenshi.shoppi.data.model.Banner
 import com.kenshi.shoppi.databinding.ItemHomeBannerBinding
+import com.kenshi.shoppi.ui.category.CategoryViewModel
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
 // T: 레이아웃에 표현할 데이터의 타입, VH: 뷰홀더
 // ListAdapter : data 의 list 를 받아서 0번째 부터 순차적으로 뷰홀더와 바인딩을 함
 // 이때 레이아웃은 그대로 유지한채로 데이터만 업데이트한다면, 성능상의 이점이 있음, 이를 지원하는게 ListAdapter
-class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHolder>(
+class HomeBannerAdapter(private val viewModel : HomeViewModel) : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHolder>(
     BannerDiffCallback()
 ) {
     private lateinit var binding: ItemHomeBannerBinding
@@ -38,10 +39,11 @@ class HomeBannerAdapter : ListAdapter<Banner, HomeBannerAdapter.HomeBannerViewHo
     //view HomeBanner 에서 inflate 시킬 레이아웃을 의미
 //    class HomeBannerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     //class 내부에서 binding 변수를 사용하려면 private val 처리 해줘야
-    class HomeBannerViewHolder(private val binding: ItemHomeBannerBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class HomeBannerViewHolder(private val binding: ItemHomeBannerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(banner: Banner) {
             binding.banner = banner
-            //이 메소드까지 호출해야 바로 바인딩이 됨
+            //이 메소드까지 호출해야 바로 데이터가 바인딩이 됨
+            binding.viewModel = viewModel
             binding.executePendingBindings()
         }
     }

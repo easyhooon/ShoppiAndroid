@@ -1,5 +1,7 @@
 package com.kenshi.shoppi.ui.common
 
+import android.graphics.Paint
+import android.text.style.StrikethroughSpan
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.kenshi.shoppi.R
@@ -17,4 +19,12 @@ fun applyPriceFormat(view: TextView, price: Int) {
 fun applyPriceDiscountRate(view: TextView, price: Int, discountRate: Int) {
     val discountPrice = (((100 - discountRate) / 100.0) * price).roundToInt()
     applyPriceFormat(view, discountPrice)
+}
+
+@BindingAdapter("priceAmount", "strikeThrough")
+fun applyPriceAndStrikeStyle(view: TextView, price: Int, strikethrough: Boolean) {
+    applyPriceFormat(view, price)
+    if (strikethrough) {
+        view.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+    }
 }

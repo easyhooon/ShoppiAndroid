@@ -3,6 +3,7 @@ package com.kenshi.shoppi.data.network
 import com.kenshi.shoppi.BuildConfig
 import com.kenshi.shoppi.data.model.Category
 import com.kenshi.shoppi.data.model.CategoryDetail
+import com.kenshi.shoppi.data.model.Product
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,6 +23,9 @@ interface ApiClient {
     //확장성을 위한
     @GET("fashion_female.json")
     suspend fun getCategoryDetail(): CategoryDetail
+
+    @GET("products/{productId}.json")
+    suspend fun getProductDetail(@Path("productId") productId: String): Product
 
     companion object {
         //Api Client 객체 생성 방법 정의

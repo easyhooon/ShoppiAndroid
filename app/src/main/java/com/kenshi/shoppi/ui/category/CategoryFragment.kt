@@ -43,15 +43,18 @@ class CategoryFragment : Fragment() {
             categoryAdapter.submitList(it)
         }
 
-        //CategoryFragment는 여전히 LiveData 의 event를 수신하고 있기때문에
-        //핸드폰의 뒤로가기 버튼이 작동하지 않음 (돌아왔다가 바로 이동 -> 계속 머물고 있는것처럼 보임)
-        //이러한 방법을 해결하기 위해 한번 소비한 데이터는 다시 사용할 수 없도록 하는 방법이 존재
+        // observe 메소드를 통해 상태가 변경됨을 알림을 받음 (상태가 변경되면 아래의 메소드를 호출)
+        // categoryFragment 에서 categoryDetailFragment 로 이동을 했다가 back 으로 다시 돌아오지만
+        // CategoryFragment는 여전히 LiveData 의 event를 수신하고 있기때문에
+        // 핸드폰의 뒤로가기 버튼이 작동하지 않는것 처럼 보임
+        // (돌아왔다가 바로 다시 categoryDetailFragment로 이동 -> 계속 머물고 있는것처럼 보임)
+        // 이러한 방법을 해결하기 위해 한번 소비한 데이터는 다시 사용할 수 없도록 하는 방법이 존재
 //        viewModel.openCategoryEvent.observe(viewLifecycleOwner) {
 //            openCategoryDetail(it.categoryId, it.label)
 //        }
 
-        viewModel.openCategoryEvent.observe(viewLifecycleOwner, EventObserver {
-            openCategoryDetail(it.categoryId, it.label)
+        viewModel.openCategoryEvent.observe(viewLifecycleOwner, EventObserver { category ->
+            openCategoryDetail(category.categoryId, category.label)
         })
     }
 

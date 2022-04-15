@@ -2,6 +2,7 @@ package com.kenshi.shoppi.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kenshi.shoppi.R
@@ -13,13 +14,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
         // bnv icon 의 원래 색상 부여를 위해 (그라데이션)
         binding.bnvMain.itemIconTintList = null
 
         val navController = supportFragmentManager.findFragmentById(R.id.container_main)?.findNavController()
+
         navController?.let {
             binding.bnvMain.setupWithNavController(it)
         }
