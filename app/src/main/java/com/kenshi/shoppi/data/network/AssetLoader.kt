@@ -1,7 +1,6 @@
-package com.kenshi.shoppi
+package com.kenshi.shoppi.data.network
 
 import android.content.Context
-import android.util.Log
 
 class AssetLoader(private val context: Context) {
 

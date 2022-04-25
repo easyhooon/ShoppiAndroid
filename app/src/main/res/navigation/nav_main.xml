@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/cart"
-        android:name="com.kenshi.shoppi.ui.CartFragment"
+        android:name="com.kenshi.shoppi.ui.cart.CartFragment"
         android:label="CartFragment"
         tools:layout="@layout/fragment_cart" />
 

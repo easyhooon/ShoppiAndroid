@@ -1,5 +1,6 @@
 package com.kenshi.shoppi.ui.productdetail
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kenshi.shoppi.KEY_PRODUCT_ID
 import com.kenshi.shoppi.databinding.FragmentProductDetailBinding
+import com.kenshi.shoppi.ui.common.EventObserver
 import com.kenshi.shoppi.ui.common.ViewModelFactory
 
 class ProductDetailFragment: Fragment() {
@@ -39,6 +42,7 @@ class ProductDetailFragment: Fragment() {
         requireArguments().getString(KEY_PRODUCT_ID)?.let { productId ->
             setLayout(productId)
         }
+        setAddCart()
     }
 
     private fun setNavigation() {
@@ -56,6 +60,18 @@ class ProductDetailFragment: Fragment() {
             binding.product = product
             descriptionAdapter.submitList(product.descriptions)
         }
+    }
+
+    private fun setAddCart() {
+        viewModel.addCartEvent.observe(viewLifecycleOwner, EventObserver {
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle("장바구니에 상품이 담겼습니다")
+                .setPositiveButton("확인"
+                ) { dialog, which ->
+
+                }
+                .show()
+        })
     }
 
     override fun onDestroyView() {

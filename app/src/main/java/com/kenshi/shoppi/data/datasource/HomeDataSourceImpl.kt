@@ -1,8 +1,7 @@
 package com.kenshi.shoppi.data.datasource
 
-import android.util.Log
 import com.google.gson.Gson
-import com.kenshi.shoppi.AssetLoader
+import com.kenshi.shoppi.data.network.AssetLoader
 import com.kenshi.shoppi.data.model.HomeData
 
 class HomeDataSourceImpl(private val assetLoader: AssetLoader) : HomeDataSource {

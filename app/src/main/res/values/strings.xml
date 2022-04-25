@@ -23,6 +23,12 @@
     <string name="n">N</string>
     <string name="coupon_application_price">쿠폰 적용가</string>
     <string name="shopping_cart">장바구니 담기</string>
+    <string name="label_cart">"장바구니 "</string>
+    <string name="label_cart_purchase_button">선택한 상품 주문하기</string>
+    <string name="description_cart_item_thumbnail">장바구니 아이템 썸네일</string>
+    <string name="description_btn_delete_cart_item">장바구니 아이템 삭제</string>
+    <string name="description_btn_minus_cart_item">장바구니 아이템 수량 감소</string>
+    <string name="description_btn_plus_cart_item">장바구니 아이템 개수 증가</string>
 
 
 </resources>

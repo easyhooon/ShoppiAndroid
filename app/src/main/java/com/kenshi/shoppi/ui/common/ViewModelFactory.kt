@@ -3,17 +3,11 @@ package com.kenshi.shoppi.ui.common
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.kenshi.shoppi.AssetLoader
-import com.kenshi.shoppi.data.datasource.CategoryDataSourceImpl
-import com.kenshi.shoppi.data.datasource.CategoryDetailDataSourceImpl
-import com.kenshi.shoppi.data.datasource.HomeDataSourceImpl
-import com.kenshi.shoppi.data.datasource.ProductDetailDataSourceImpl
-import com.kenshi.shoppi.data.network.ApiClient
-import com.kenshi.shoppi.data.network.ServiceLocator
-import com.kenshi.shoppi.data.repository.CategoryDetailRepository
-import com.kenshi.shoppi.data.repository.CategoryRepository
-import com.kenshi.shoppi.data.repository.HomeRepository
-import com.kenshi.shoppi.data.repository.ProductDetailRepository
+import com.kenshi.shoppi.data.network.AssetLoader
+import com.kenshi.shoppi.data.datasource.*
+import com.kenshi.shoppi.ServiceLocator
+import com.kenshi.shoppi.data.repository.*
+import com.kenshi.shoppi.ui.cart.CartViewModel
 import com.kenshi.shoppi.ui.category.CategoryViewModel
 import com.kenshi.shoppi.ui.categorydetail.CategoryDetailViewModel
 import com.kenshi.shoppi.ui.home.HomeViewModel
@@ -46,14 +40,20 @@ class ViewModelFactory(private val context: Context): ViewModelProvider.Factory 
 
             modelClass.isAssignableFrom(CategoryDetailViewModel::class.java) -> {
 //                val repository = ProductDetailRepository(ProductDetailDataSourceImpl(ApiClient.create()))
-                val repository = CategoryDetailRepository(CategoryDetailDataSourceImpl(ServiceLocator.provideApiClient()))
+                val repository = CategoryDetailRepository(CategoryDetailDataSourceImpl(
+                    ServiceLocator.provideApiClient()))
                 CategoryDetailViewModel(repository) as T
             }
 
             modelClass.isAssignableFrom(ProductDetailViewModel::class.java) -> {
 //                val repository = ProductDetailRepository(ProductDetailDataSourceImpl(ApiClient.create()))
                 val repository = ProductDetailRepository(ProductDetailDataSourceImpl(ServiceLocator.provideApiClient()))
-                ProductDetailViewModel(repository) as T
+                ProductDetailViewModel(repository, ServiceLocator.providerCartRepository(context)) as T
+            }
+
+            modelClass.isAssignableFrom(CartViewModel::class.java) -> {
+                //이 시점에서 database instance 생성
+                CartViewModel(ServiceLocator.providerCartRepository(context)) as T
             }
 
             else -> {
